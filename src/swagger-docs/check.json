@@ -1,0 +1,55 @@
+{
+    "openapi": {
+      "info": {
+        "title": "Fastify-Blog-App",
+        "description": "This is the Fastify-Blog-App lcojitu written by JituAhir",
+        "version": "1.0.1"
+      },
+      "servers": [
+        {
+          "url": "http://localhost:3000/",
+          "description": "This is the base url of this app"
+        },
+        {
+          "url": "https://localhost/api/v1",
+          "description": "This is the another url which is not working"
+        }
+      ],
+      "consumes" : [
+          "application/json",
+          "multipart/form-data"
+      ]
+  
+    },
+    "exposeRoute":  true,
+    "path" : {
+        "/api/blog/findone/{Id}" :{
+            "get" : {
+                "summary" : "It will return blog details of given id ",
+                "operationId" : "Id",
+                "parameters" : {
+                    "name" : "id",
+                    "in" : "path",
+                    "default" : 1212121212,
+                    "type" : "integer"
+                },
+                "responses" : {
+                    "201":{
+                        "description" : "Successful operation",
+                        "content" : {
+                            "application/json": {
+                                "schema" : {
+                                    "value":{
+                                        "type" : "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+}

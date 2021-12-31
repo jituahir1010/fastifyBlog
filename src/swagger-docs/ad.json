@@ -1,0 +1,24 @@
+ {
+    "tags": ["Media"],
+    "name": "Upload Media",
+    "description": "Uploads a Media file to the server.",
+    "parameters": 
+      {
+          "name": "File",
+          "description": "The file",
+          "paramType": "body",
+          "required": true,
+          "type": "file"
+      },
+
+
+    "response" : {
+      "200" : {
+        "description" : "Response successful",
+        "type" : "object",
+        "properties" : {
+          "hello" : {"type" : "string"}
+        }
+      }
+    }
+}
