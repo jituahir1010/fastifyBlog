@@ -7,6 +7,7 @@ const upload = multer({ dest: "uploads/" });
 fastify.register(multer.contentParser);
 
 const  jkl  = require("../swagger-docs/ad.json")
+
 const { findOneBlogSchema ,
   DeleteOneBlogSchema, 
   fileuplodeschema
@@ -23,7 +24,7 @@ const routes = [
   {
     method: "POST",
     url: "/api/blog/addNewBlog",
-    schema : jkl,  
+    schema : fileuplodeschema,  
     preHandler: upload.single("jitu"),
     handler: blogController.addNewBlog,
   },

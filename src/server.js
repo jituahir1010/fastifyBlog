@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 fastify.register(require("fastify-multipart"));
 
 // swagger documentation 
-const   main   = require("./swagger-docs/check.json");
+const   main   = require("./swagger-docs/mainswag.json");
 fastify.register(require("fastify-swagger"), main);
 
 
@@ -34,38 +34,6 @@ cloudinary.config({
 routes.forEach((route, index) => {
   fastify.route(route)
 });
-
-// for try
-
-fastify.post("/hello/:id",
-  jkl
-,(req, reply) => {
-  const data = req.params.id;
-  reply.send({
-    dat : data
-  })
-})
-
-// fastify.post("/api/blog/findone/:id", jkl, 
-// async (req, reply) => {
-//   try {
-//     const blogId  = req.params.id
-//     const blog = await Blog.findById(blogId);
-//     // return(blogs)
-//     if (blog) {
-//           reply.send(blog);
-//           // return blogs;
-//     }
-//     return "No blog is found by given Id"
-
-//   } catch (error) {
-//     fastify.log.error(error);
-    
-//   }
-// }
-// )
-
-
 
 
 // Run the server!
