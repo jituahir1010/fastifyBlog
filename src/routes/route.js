@@ -32,21 +32,62 @@ const routes = [
   {
     method: "POST",
     url: "/api/blog/findone/:Id",
-    schema: findOneBlogSchema,
+    // schema: findOneBlogSchema,
     handler : blogController.findOneBlog
   },
   {
-    method: "DELETE",
+    method: "GET",
     url: "/api/blog/deleteone/:Id",
-    schema: DeleteOneBlogSchema,
+    // schema: DeleteOneBlogSchema,
     handler: blogController.delete,
   },
   {
-    method: "PUT",
-    url: "/api/blog/update/:Id",
+    method: "POST",
+    url: "/api/blog/update",
     schema: findOneBlogSchema,
     preHandler: upload.single("jitu"),
     handler: blogController.update,
+  },
+
+
+//  frontEnd URLS
+{
+  method : "GET",
+  url : "/",
+  handler : async(req,reply) => {
+    return reply.view("/templates/home.ejs", {text : "text"})
+  }
+},
+  {
+    method : "GET",
+    url : "/Home",
+    handler : async(req,reply) => {
+      return reply.view("/templates/home.ejs", {text : "text"})
+    }
+  },
+
+  {
+    method : "GET",
+    url : "/addblog",
+    handler : async(req,reply) => {
+      return reply.view("/templates/form.ejs", {text : "text"})
+    }
+  },
+
+  {
+    method : "GET",
+    url : "/updateblog",
+    handler : async(req,reply) => {
+      return reply.view("/templates/update.ejs", {text : "text"})
+    }
+  },
+
+  {
+    method : "GET",
+    url : "/api/blog/deleteone/",
+    handler : async(req,reply) => {
+      return reply.view("/templates/delete.ejs", {text : "text"})
+    }
   },
 ];
 

@@ -6,6 +6,8 @@ const cloudinary = require("cloudinary").v2;
 const multer = require("fastify-multer");
 const upload = multer({ dest: "uploads/" });
 const mongoose = require("mongoose");
+fastify.register(require("fastify-multipart"));
+
 // content parser from fastify-multer
 fastify.register(multer.contentParser);
 
@@ -13,7 +15,7 @@ fastify.register(multer.contentParser);
 exports.blogs = async (req, reply) => {
   try {
     const blogs = await Blog.find();
-    reply.send(blogs)
+    // return reply.view("/templates/index.ejs", { text: "text" })
     return blogs; 
     
   } catch (error) {
@@ -22,8 +24,9 @@ exports.blogs = async (req, reply) => {
 }
 
 // Find one Blog by given Id
-exports.findOneBlog = async (req, reply) => {
+exports.findOneBlog =  async(req, reply) => {
   try {
+    
     const blogId  = req.params.Id
     const blog = await Blog.findById(blogId);
     // return(blog)
@@ -41,8 +44,11 @@ exports.findOneBlog = async (req, reply) => {
 
 // Add New blog
 exports.addNewBlog = async (req, reply) => {
+
+    
   try {
-    const { title, desforSeo, author, body,date } = req.body;
+
+    const { title, desforSeo, author ,date } = req.body;
 
     const file = req.file.path;
     const result = await cloudinary.uploader.upload(file, {
@@ -53,20 +59,20 @@ exports.addNewBlog = async (req, reply) => {
       title,
       desforSeo,
       author,
-      body,
+      // body,
       date,
       photo: {
         id: result.public_id,
         secure_url: result.secure_url,
       },
+
     });
     // save the data in mongoDB
     const data = await blog.save()
-
+    
     reply.code(200).send({
       status: "Success",
-      blog,
-      // result
+      data
     });
   } catch (error) {
     throw error
@@ -75,16 +81,19 @@ exports.addNewBlog = async (req, reply) => {
 
   // Update already saved blog by given id
   (exports.update = async (req, reply) => {
+
   try {
-    const blogId = req.params.Id;
+    
+    const blogId = req.body.Id;
     const blog = await Blog.findById(blogId);
     const public_Id = blog.photo.id;
-    // return (public_Id)
-      
+    // return reply.send(public_Id)
+
+    
     if (blog) {
 
       const file = req.file.path;
-      // return(public_Id)
+      // return file
       await cloudinary.uploader.destroy(public_Id);
       const result = await cloudinary.uploader.upload(file, {
         folder: "users",
@@ -103,7 +112,7 @@ exports.addNewBlog = async (req, reply) => {
       });
       
       reply.code(200).send(updated)
-      return result
+      return updated
 
       
     }
@@ -118,7 +127,7 @@ exports.addNewBlog = async (req, reply) => {
 // Delete one Blog By given id 
 exports.delete = async (req, reply) => {
     try {
-      const blogId  = req.params.Id;
+      const blogId  =  req.params.Id 
       const blog = await Blog.findById(blogId);
       if (blog) {
         const blogId = req.params.Id;

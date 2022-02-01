@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    // required: true,
     minlength: [10, "Title length should be 10 char. minumam "],
   },
   desforSeo: String,
   author: {
     type: String,
-    required: true,
+    // required: true,
   },
   body: {
     type: String,
@@ -19,11 +19,11 @@ const blogSchema = new mongoose.Schema({
   photo: {
     id: {
       type: String,
-      required: true,
+      // required: true,
     },
     secure_url: {
       type: String,
-      required: true,
+      // required: true,
     },
   },
   

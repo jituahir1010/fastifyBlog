@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const fastify = require("fastify")({ logger: true });
+const cors = require('fastify-cors');
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
 const routes = require("../src/routes/route");
@@ -9,10 +10,20 @@ const Blog = require("../src/models/models")
 const PORT = process.env.PORT;
 fastify.register(require("fastify-multipart"));
 
+//Cors Plugin
+fastify.register(cors, { origin: 'http://127.0.0.1:5500' });
+
+
 // swagger documentation 
 const   main   = require("./swagger-docs/mainswag.json");
 fastify.register(require("fastify-swagger"), main);
 
+// Register the template Engine
+fastify.register(require("point-of-view"), {
+  engine: {
+    ejs: require("ejs"),
+  },
+});
 
 // DB connection
 mongoose
@@ -24,8 +35,10 @@ mongoose
   .catch((err) => console.log(err));
 
 //cloudinary configuration
+
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
+// create your own cloudinary accout and paste your details
+  cloud_name: process.env.CLOUD_NAME, 
   api_key: process.env.CLOUD_KEY,
   api_secret: process.env.CLOUD_SECRET,
 });
@@ -40,7 +53,7 @@ routes.forEach((route, index) => {
 const start = async () => {
   try {
     await fastify.listen(PORT);
-    fastify.log.info("jai ho ");
+    fastify.log.info(`Server is Up and running on Port ${PORT}`);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
