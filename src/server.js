@@ -7,7 +7,8 @@ const cloudinary = require("cloudinary").v2;
 const routes = require("../src/routes/route");
 const multer = require("fastify-multer")
 const Blog = require("../src/models/models")
-const PORT = process.env.PORT;
+const host = '0.0.0.0';
+const PORT = process.env.PORT || 3000
 fastify.register(require("fastify-multipart"));
 
 //Cors Plugin
@@ -50,13 +51,11 @@ routes.forEach((route, index) => {
 
 
 // Run the server!
-const start = async () => {
-  try {
-    await fastify.listen(PORT);
-    fastify.log.info(`Server is Up and running on Port ${PORT}`);
-  } catch (err) {
-    fastify.log.error(err);
-    process.exit(1);
+
+fastify.listen(PORT, `0.0.0.0` ,function (err, address) {
+  if (err) {
+    fastify.log.error(err)
+    process.exit(1)
   }
-};
-start();
+  // Server is now listening on ${address}
+})

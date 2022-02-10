@@ -48,7 +48,8 @@ exports.addNewBlog = async (req, reply) => {
     
   try {
 
-    const { title, desforSeo, author ,date } = req.body;
+    const { title, desforSeo, author, body, date} = req.body;
+
 
     const file = req.file.path;
     const result = await cloudinary.uploader.upload(file, {
@@ -59,7 +60,7 @@ exports.addNewBlog = async (req, reply) => {
       title,
       desforSeo,
       author,
-      // body,
+      body,
       date,
       photo: {
         id: result.public_id,

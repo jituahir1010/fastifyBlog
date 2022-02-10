@@ -24,7 +24,6 @@ const routes = [
   {
     method: "POST",
     url: "/api/blog/addNewBlog",
-    // schema : fileuplodeschema,  
     preHandler: upload.single("jitu"),
     handler: blogController.addNewBlog,
   },

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <!-- <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png"> -->
     <title>Home</title>
     <style>
         body  {
@@ -92,18 +92,14 @@
             display: grid;
             margin: 3%;
             cursor: grab;
-        }
-
-   
+        }   
 
     </style>
 
 <script >
     // Backend API URL
-const api_url = "http://127.0.0.1:3000/api/blog/blogs";
+const api_url = "/api/blog/blogs";
 
-
-  
 // Defining async function
 async function getapi(url) {
     
@@ -121,7 +117,7 @@ async function getapi(url) {
             <h2> Name : ${user.author}  </h2>
             <p> id : ${user._id}</p>
 
-            <h4> ShortDescription : <h5>${user.desforSeo}</h5></h4>
+            <h4> ShortDescription : ${user.desforSeo}</h4>
 
             </div>
 
@@ -156,8 +152,10 @@ async function getapi(url) {
 
     <button class="btn" style="margin-top: 20px; background-color: green; "  onclick="location.href='/addblog'"  type="button"> Add New Blog</button>
     <br>
-    <input  class="btn" style="margin-top: 20px; background-color: #A7BDB6;" type="button" onclick="getapi(api_url)" value="Get All Blogs">
-    </div>
+    <!-- <input  class="btn" style="margin-top: 20px; background-color: #A7BDB6;" type="button" onclick="getapi(api_url)" value="Get All logs"> -->
+    <button class="btn hlo" style="margin-top: 20px; background-color: #A7BDB6; "  onclick="getapi(api_url)"  type="button"> Get All Blogs</button>
+    
+</div>
     <div id="app">
     </div>
 
